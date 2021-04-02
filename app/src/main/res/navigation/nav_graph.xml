@@ -5,13 +5,11 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/welcomeFragment">
 
-
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="com.ebrecher.p2.ui.main.WelcomeFragment"
         android:label="welcome_fragment"
-        tools:layout="@layout/welcome_fragment" >
-   />
+        tools:layout="@layout/welcome_fragment">
         <action
             android:id="@+id/action_welcomeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
@@ -21,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.ebrecher.p2.SettingsFragment"
+        android:name="com.ebrecher.p2.ui.main.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
         <action
@@ -30,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/configFragment"
-        android:name="com.ebrecher.p2.ConfigFragment"
+        android:name="com.ebrecher.p2.ui.main.ConfigFragment"
         android:label="fragment_config"
         tools:layout="@layout/fragment_config" >
         <action
@@ -48,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="com.ebrecher.p2.ResultFragment"
+        android:name="com.ebrecher.p2.ui.main.ResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" >
         <action

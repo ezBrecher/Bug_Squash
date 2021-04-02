@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.findNavController
 import com.ebrecher.p2.R
 
 class GameFragment : Fragment() {
@@ -16,11 +18,21 @@ class GameFragment : Fragment() {
 
     private lateinit var viewModel: GameViewModel
 
+    private lateinit var gameOverButton: Button
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.game_fragment, container, false)
+        val view = inflater.inflate(R.layout.game_fragment, container, false)
+
+        gameOverButton = view.findViewById(R.id.gameOverButton)
+
+        gameOverButton.setOnClickListener {
+            view.findNavController().navigate(R.id.action_gameFragment2_to_resultFragment)
+        }
+
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
