@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">P2</string>
-    <string name="welcomeMessageText">Welcome to Whack a Mole!</string>
-    <string name="playButtonText">Play</string>
-    <string name="settingsButtonText">Settings</string>
-    <string name="settingsFragmentTitle">Settings</string>
+    <string name="welcomeMessageText">Bienvenue à Whack a Mole!</string>
+    <string name="playButtonText">Jouer</string>
+    <string name="settingsButtonText">Paramètres</string>
+    <string name="settingsFragmentTitle">Paramètres</string>
     <string name="configFragmentTitle">Config something idk</string>
     <string name="gameFragmentTitle">G O O M</string>
     <string name="resultsFragmentTitle">Results</string>

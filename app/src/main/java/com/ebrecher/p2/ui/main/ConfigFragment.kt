@@ -1,23 +1,36 @@
 package com.ebrecher.p2.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ebrecher.p2.R
+import com.ebrecher.p2.databinding.FragmentSettingsBinding
 
 class ConfigFragment : Fragment() {
+
+    private val viewModel: GameViewModel by activityViewModels()
+
+    val difficulties = arrayOf("Easy", "Normal", "Hard")
+
+    private lateinit var recycler: RecyclerView
+    private lateinit var headerText: TextView
 
     companion object {
         fun newInstance() = ConfigFragment()
     }
 
     lateinit var configPlayButton: Button
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,10 +40,72 @@ class ConfigFragment : Fragment() {
 
         configPlayButton = view.findViewById(R.id.configPlayButton)
 
+        recycler = view.findViewById(R.id.configRecycler)
+        recycler.layoutManager = LinearLayoutManager(context)
+        recycler.adapter = configAdapter(difficulties)
+
+        headerText = view.findViewById(R.id.configHeader)
+        headerText.text = ""
+
         configPlayButton.setOnClickListener {
             view.findNavController().navigate(R.id.action_configFragment_to_gameFragment2)
         }
 
         return view
+    }
+
+    private inner class configViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+        private val textView: TextView = itemView.findViewById(R.id.diffTextView)
+        private lateinit var curr: String
+
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            headerText.text = curr
+            when (curr) {
+                "Easy" -> {
+                    viewModel.currDiff ="Easy"
+                    viewModel.easy = true
+                    viewModel.normal = false
+                    viewModel.hard = false
+                }
+                "Normal" -> {
+                    viewModel.currDiff ="Normal"
+                    viewModel.easy = false
+                    viewModel.normal = true
+                    viewModel.hard = false
+                }
+                "Hard" -> {
+                    viewModel.currDiff = "Hard"
+                    viewModel.easy = false
+                    viewModel.normal = false
+                    viewModel.hard = true
+                }
+            }
+            Log.d("TAG", "easy " + viewModel.easy.toString())
+            Log.d("TAG", "medium " + viewModel.normal.toString())
+            Log.d("TAG", "hard " + viewModel.hard.toString())
+        }
+
+        fun bind(string: String) {
+            curr = string
+            textView.text = string
+        }
+    }
+
+    private inner class configAdapter(val list: Array<String>) : RecyclerView.Adapter<configViewHolder>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): configViewHolder {
+            val view = layoutInflater.inflate(R.layout.recycler_item, parent, false)
+            return configViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: configViewHolder, position: Int) {
+            holder.bind(list[position])
+        }
+
+        override fun getItemCount(): Int = list.size
     }
 }

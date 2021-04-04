@@ -25,9 +25,6 @@ class SettingsFragment : Fragment() {
 
     private val viewModel: GameViewModel by activityViewModels()
 
-    private lateinit var backButton: Button
-    private lateinit var themeGroup: RadioGroup
-
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -42,21 +39,22 @@ class SettingsFragment : Fragment() {
             it.findNavController().navigate(R.id.action_settingsFragment_to_welcomeFragment)
         }
 
-        binding.themeRadioGroup.setOnCheckedChangeListener { themeGroup, checkedId ->
+        binding.themeRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                2131230942 -> {
+                R.id.lightRadioButton -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     (activity as AppCompatActivity?)!!.delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
                     viewModel.nightMode = false
                     Log.d("TAG", viewModel.nightMode.toString())
                 }
-                2131230854 -> {
+                R.id.darkRadioButton -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                     (activity as AppCompatActivity?)!!.delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
                     viewModel.nightMode = true
                     Log.d("TAG", viewModel.nightMode.toString())
                 }
             }
+            Log.d("TAG", checkedId.toString())
         }
 
         return binding.root

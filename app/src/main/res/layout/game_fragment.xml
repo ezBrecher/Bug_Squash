@@ -32,6 +32,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/gameHeader"
             app:layout_constraintVertical_bias="0.807" />
+
+        <TextView
+            android:id="@+id/currentGameDifficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gameDifficulty"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/gameOverButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gameHeader" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
