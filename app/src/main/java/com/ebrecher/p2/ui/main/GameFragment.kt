@@ -1,4 +1,4 @@
-package com.ebrecher.p2.ui.main.Game
+package com.ebrecher.p2.ui.main
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle

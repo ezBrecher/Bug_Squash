@@ -1,31 +1,65 @@
 package com.ebrecher.p2.ui.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.RadioGroup
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableInt
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.ebrecher.p2.R
+import com.ebrecher.p2.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment() {
 
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: GameViewModel by activityViewModels()
+
     private lateinit var backButton: Button
+    private lateinit var themeGroup: RadioGroup
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_settings, container, false)
-
-        backButton = view.findViewById(R.id.backButton)
-
-        backButton.setOnClickListener {
-            view.findNavController().navigate(R.id.action_settingsFragment_to_welcomeFragment)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
+        binding.run {
+            vm = viewModel
+            lifecycleOwner = this@SettingsFragment
         }
 
-        return view
+        binding.backButton.setOnClickListener {
+            it.findNavController().navigate(R.id.action_settingsFragment_to_welcomeFragment)
+        }
+
+        binding.themeRadioGroup.setOnCheckedChangeListener { themeGroup, checkedId ->
+            when (checkedId) {
+                2131230942 -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    (activity as AppCompatActivity?)!!.delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
+                    viewModel.nightMode = false
+                    Log.d("TAG", viewModel.nightMode.toString())
+                }
+                2131230854 -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    (activity as AppCompatActivity?)!!.delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+                    viewModel.nightMode = true
+                    Log.d("TAG", viewModel.nightMode.toString())
+                }
+            }
+        }
+
+        return binding.root
     }
 
     companion object {

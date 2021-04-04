@@ -12,5 +12,7 @@
     <string name="configPlayButtonText">Lets Go!</string>
     <string name="settingsBack">back</string>
     <string name="gameOverText">Game Over</string>
-    <string name="backToTitle">Back to Start</string>
+    <string name="backToTitle">New Game</string>
+    <string name="lightMode">Light Mode</string>
+    <string name="darkMode">Dark Mode</string>
 </resources>

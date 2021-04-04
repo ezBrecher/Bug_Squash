@@ -12,10 +12,14 @@
         tools:layout="@layout/welcome_fragment">
         <action
             android:id="@+id/action_welcomeFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/from_bottom"
+            app:exitAnim="@anim/to_top" />
         <action
             android:id="@+id/action_welcomeFragment_to_configFragment"
-            app:destination="@id/configFragment" />
+            app:destination="@id/configFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -24,7 +28,9 @@
         tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/action_settingsFragment_to_welcomeFragment"
-            app:destination="@id/welcomeFragment" />
+            app:destination="@id/welcomeFragment"
+            app:enterAnim="@anim/from_top"
+            app:exitAnim="@anim/to_bottom" />
     </fragment>
     <fragment
         android:id="@+id/configFragment"
@@ -33,16 +39,23 @@
         tools:layout="@layout/fragment_config" >
         <action
             android:id="@+id/action_configFragment_to_gameFragment2"
-            app:destination="@id/gameFragment2" />
+            app:destination="@id/gameFragment2"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment2"
-        android:name="com.ebrecher.p2.ui.main.Game.GameFragment"
+        android:name="com.ebrecher.p2.ui.main.GameFragment"
         android:label="game_fragment"
         tools:layout="@layout/game_fragment" >
         <action
             android:id="@+id/action_gameFragment2_to_resultFragment"
-            app:destination="@id/resultFragment" />
+            app:destination="@id/resultFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            app:popUpTo="@id/welcomeFragment"/>
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
@@ -51,6 +64,11 @@
         tools:layout="@layout/fragment_result" >
         <action
             android:id="@+id/action_resultFragment_to_welcomeFragment"
-            app:destination="@id/welcomeFragment" />
+            app:destination="@id/welcomeFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            app:popUpTo="@id/welcomeFragment"/>
     </fragment>
 </navigation>
