@@ -2,6 +2,7 @@ package com.ebrecher.p2.ui.main
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,12 +27,31 @@ class GameFragment : Fragment() {
     private lateinit var imButton1: ImageButton
     private lateinit var imButton2: ImageButton
     private lateinit var imButton3: ImageButton
+    private lateinit var imButton4: ImageButton
+    private lateinit var imButton5: ImageButton
+    private lateinit var imButton6: ImageButton
+    private lateinit var imButton7: ImageButton
+    private lateinit var imButton8: ImageButton
+    private lateinit var imButton9: ImageButton
+    private lateinit var imButton10: ImageButton
+    private lateinit var imButton11: ImageButton
+    private lateinit var imButton12: ImageButton
+
+    val mainHandler = Handler(Looper.getMainLooper())
+
+
+
+    var delay: Long = 2000
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.game_fragment, container, false)
+
+        if (viewModel.easy) delay = 3000
+        if (viewModel.normal) delay = 2000
+        if (viewModel.hard) delay = 1000
 
         gameOverButton = view.findViewById(R.id.gameOverButton)
         gameHeader = view.findViewById(R.id.gameHeader)
@@ -40,11 +60,55 @@ class GameFragment : Fragment() {
         imButton1 = view.findViewById(R.id.imageButton1)
         imButton2 = view.findViewById(R.id.imageButton2)
         imButton3 = view.findViewById(R.id.imageButton3)
+        imButton4 = view.findViewById(R.id.imageButton4)
+        imButton5 = view.findViewById(R.id.imageButton5)
+        imButton6 = view.findViewById(R.id.imageButton6)
+        imButton7 = view.findViewById(R.id.imageButton7)
+        imButton8 = view.findViewById(R.id.imageButton8)
+        imButton9 = view.findViewById(R.id.imageButton9)
+        imButton10 = view.findViewById(R.id.imageButton10)
+        imButton11= view.findViewById(R.id.imageButton11)
+        imButton12 = view.findViewById(R.id.imageButton12)
 
+        mainHandler.post(object : Runnable {
+            override fun run() {
+                val rnds = (0..12).random()
+                when(rnds) {
+                    0 -> imButton1.setImageResource(R.drawable.bug_image)
+                    1 -> imButton2.setImageResource(R.drawable.bug_image)
+                    2 -> imButton3.setImageResource(R.drawable.bug_image)
+                    3 -> imButton4.setImageResource(R.drawable.bug_image)
+                    4 -> imButton5.setImageResource(R.drawable.bug_image)
+                    5 -> imButton6.setImageResource(R.drawable.bug_image)
+                    6 -> imButton7.setImageResource(R.drawable.bug_image)
+                    7 -> imButton8.setImageResource(R.drawable.bug_image)
+                    8 -> imButton9.setImageResource(R.drawable.bug_image)
+                    9 -> imButton10.setImageResource(R.drawable.bug_image)
+                    10 -> imButton11.setImageResource(R.drawable.bug_image)
+                    11 -> imButton12.setImageResource(R.drawable.bug_image)
+                }
+                mainHandler.postDelayed(this, delay)
+            }
+        })
+        /*
         Handler().postDelayed({
-            imButton1.setImageResource(R.drawable.bug_image)
-        }, 2000)
-
+            val rnds = (0..12).random()
+            when(rnds) {
+                0 -> imButton1.setImageResource(R.drawable.bug_image)
+                1 -> imButton2.setImageResource(R.drawable.bug_image)
+                2 -> imButton3.setImageResource(R.drawable.bug_image)
+                3 -> imButton4.setImageResource(R.drawable.bug_image)
+                4 -> imButton5.setImageResource(R.drawable.bug_image)
+                5 -> imButton6.setImageResource(R.drawable.bug_image)
+                6 -> imButton7.setImageResource(R.drawable.bug_image)
+                7 -> imButton8.setImageResource(R.drawable.bug_image)
+                8 -> imButton9.setImageResource(R.drawable.bug_image)
+                9 -> imButton10.setImageResource(R.drawable.bug_image)
+                10 -> imButton11.setImageResource(R.drawable.bug_image)
+                11 -> imButton12.setImageResource(R.drawable.bug_image)
+            }
+        }, delay)
+        */
         gameHeader.text = "Bug Squash! (" + viewModel.currDiff + ")"
         difficultyText.text = "score " + viewModel.score
 
