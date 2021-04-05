@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">P2</string>
-    <string name="welcomeMessageText">Welcome to Whack a Mole!</string>
+    <string name="welcomeMessageText">Welcome to Bug Squash</string>
     <string name="playButtonText">Play</string>
     <string name="settingsButtonText">Settings</string>
     <string name="settingsFragmentTitle">Settings</string>
     <string name="configFragmentTitle">Config something idk</string>
-    <string name="gameFragmentTitle">G O O M</string>
+    <string name="gameFragmentTitle">Bug Squash!</string>
     <string name="resultsFragmentTitle">Results</string>
     <string name="configPlayButtonText">Lets Go!</string>
     <string name="settingsBack">back</string>
@@ -16,5 +16,5 @@
     <string name="difficultyEasy">Easy</string>
     <string name="difficultyNormal">Normal</string>
     <string name="difficultyHard">Hard</string>
-    <string name="gameDifficulty">none</string>
+    <string name="gameDifficulty"></string>
 </resources>
