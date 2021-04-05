@@ -39,6 +39,8 @@ class SettingsFragment : Fragment() {
             it.findNavController().navigate(R.id.action_settingsFragment_to_welcomeFragment)
         }
 
+        binding.bugSwitch.isChecked = viewModel.bug2
+
         binding.bugSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 viewModel.bug2 = true
@@ -47,16 +49,23 @@ class SettingsFragment : Fragment() {
             }
         }
 
+        if (viewModel.nightMode) {
+            binding.darkRadioButton.isChecked = true
+            binding.lightRadioButton.isChecked = false
+        } else {
+            binding.darkRadioButton.isChecked = false
+            binding.lightRadioButton.isChecked = true
+        }
+
         binding.themeRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.lightRadioButton -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    //n.b. when researching functions to switch the theme of the app with an in app interactions, the best one I found was a Java function which Android Studio auto-corrected to the following:
                     (activity as AppCompatActivity?)!!.delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
                     viewModel.nightMode = false
                     Log.d("TAG", viewModel.nightMode.toString())
                 }
                 R.id.darkRadioButton -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                     (activity as AppCompatActivity?)!!.delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
                     viewModel.nightMode = true
                     Log.d("TAG", viewModel.nightMode.toString())
