@@ -6,7 +6,7 @@
     <string name="settingsFragmentTitle">Settings</string>
     <string name="configFragmentTitle">Config something idk</string>
     <string name="gameFragmentTitle">Bug Squash!</string>
-    <string name="resultsFragmentTitle">Results</string>
+    <string name="resultsFragmentTitle">Game Over!</string>
     <string name="configPlayButtonText">Lets Go!</string>
     <string name="settingsBack">back</string>
     <string name="gameOverText">Game Over</string>
