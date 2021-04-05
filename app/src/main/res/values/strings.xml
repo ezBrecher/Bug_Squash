@@ -13,8 +13,11 @@
     <string name="backToTitle">New Game</string>
     <string name="lightMode">Light Mode</string>
     <string name="darkMode">Dark Mode</string>
-    <string name="difficultyEasy">Easy</string>
-    <string name="difficultyNormal">Normal</string>
-    <string name="difficultyHard">Hard</string>
+    <string name="difficultyEasy">Difficulty: Easy</string>
+    <string name="difficultyNormal">Difficulty: Normal</string>
+    <string name="difficultyHard">Difficulty: Hard</string>
     <string name="gameDifficulty"></string>
+    <string name="squashed">You Squashed</string>
+    <string name="bugs">Bugs!</string>
+    <string name="bugSwitchText">Other Bug</string>
 </resources>

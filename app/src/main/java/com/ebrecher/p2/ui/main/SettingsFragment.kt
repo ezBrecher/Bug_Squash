@@ -39,6 +39,14 @@ class SettingsFragment : Fragment() {
             it.findNavController().navigate(R.id.action_settingsFragment_to_welcomeFragment)
         }
 
+        binding.bugSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                viewModel.bug2 = true
+            } else {
+                viewModel.bug2 = false
+            }
+        }
+
         binding.themeRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.lightRadioButton -> {

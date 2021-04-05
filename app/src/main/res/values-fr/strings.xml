@@ -18,4 +18,6 @@
     <string name="difficultyNormal">Normal</string>
     <string name="difficultyHard">Hard</string>
     <string name="gameDifficulty">none</string>
+    <string name="squashed">You Squashed</string>
+    <string name="bugs">Bugs!</string>
 </resources>

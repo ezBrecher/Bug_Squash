@@ -44,7 +44,7 @@
             android:id="@+id/themeRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/backButton"
+            app:layout_constraintBottom_toTopOf="@+id/bugSwitch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/settingsHeader">
@@ -61,6 +61,16 @@
                 android:layout_height="wrap_content"
                 android:text="@{vm.darkText}" />
         </RadioGroup>
+
+        <Switch
+            android:id="@+id/bugSwitch"
+            android:layout_width="97dp"
+            android:layout_height="32dp"
+            android:text="@string/bugSwitchText"
+            app:layout_constraintBottom_toTopOf="@+id/backButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/themeRadioGroup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

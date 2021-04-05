@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 
 class GameViewModel() : ViewModel() {
 
+    var bug2: Boolean = false
     var score: Int = 0
     var currDiff: String = "Normal"
     var easy: Boolean = false

@@ -27,7 +27,7 @@ class ResultFragment : Fragment() {
         backTitleButton = view.findViewById(R.id.backToTitleButton)
         scoreTextView = view.findViewById(R.id.resultsScoreTextView)
 
-        scoreTextView.text = "You Squashed " + viewModel.score + " Bugs!"
+        scoreTextView.text = viewModel.score.toString()
 
         backTitleButton.setOnClickListener {
             view.findNavController().navigate(R.id.action_resultFragment_to_welcomeFragment)

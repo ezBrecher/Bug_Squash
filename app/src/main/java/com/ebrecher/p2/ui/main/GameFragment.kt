@@ -3,6 +3,7 @@ package com.ebrecher.p2.ui.main
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -31,6 +33,9 @@ class GameFragment : Fragment() {
     private var delay: Long = 2000
     private var clicked: Boolean = true
     private var gameOver: Boolean = false
+    private var wait = true
+
+    val animator = ValueAnimator.ofFloat(0f, 1f)
 
     private lateinit var imButton1: ImageButton
     private lateinit var imButton2: ImageButton
@@ -64,6 +69,9 @@ class GameFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.game_fragment, container, false)
 
+        wait = true
+        clicked = true
+
         if (viewModel.easy) delay = 3000
         if (viewModel.normal) delay = 2000
         if (viewModel.hard) delay = 1000
@@ -87,8 +95,26 @@ class GameFragment : Fragment() {
         imButton11= view.findViewById(R.id.imageButton11)
         imButton12 = view.findViewById(R.id.imageButton12)
 
-        gameHeader.text = "Bug Squash! (" + viewModel.currDiff + ")"
-        difficultyText.text = "score " + viewModel.score
+        difficultyText.text = viewModel.score.toString()
+
+        // first simple animation that fades all the cards in on a delay before the game begins
+        animator.addUpdateListener {
+            imButton1.alpha = it.animatedValue as Float
+            imButton2.alpha = it.animatedValue as Float
+            imButton3.alpha = it.animatedValue as Float
+            imButton4.alpha = it.animatedValue as Float
+            imButton5.alpha = it.animatedValue as Float
+            imButton6.alpha = it.animatedValue as Float
+            imButton7.alpha = it.animatedValue as Float
+            imButton8.alpha = it.animatedValue as Float
+            imButton9.alpha = it.animatedValue as Float
+            imButton10.alpha = it.animatedValue as Float
+            imButton11.alpha = it.animatedValue as Float
+            imButton12.alpha = it.animatedValue as Float
+        }
+        animator.interpolator = LinearInterpolator()
+        animator.duration = 2000
+        animator.start()
 
         gameOverButton.setOnClickListener {
             gameOver = true
@@ -102,28 +128,7 @@ class GameFragment : Fragment() {
                 clicked = true
                 hasBug1 = false
                 difficultyText.text = "score " + viewModel.score
-
-                val animator1 = ObjectAnimator.ofFloat(imButton1, "scaleX",  0f)
-                val animator2 = ObjectAnimator.ofFloat(imButton1, "scaleX", 1f)
-
-                animator1.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {
-                        imButton1.setImageResource(R.drawable.cpu_image)
-                    }
-                })
-                animator2.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {}
-                })
-                val set = AnimatorSet()
-                set.play(animator1).before(animator2)
-                set.duration = 100L
-                set.start()
+                flipCard(imButton1, hasBug1, 100L)
             }
         }
 
@@ -133,28 +138,7 @@ class GameFragment : Fragment() {
                 clicked = true
                 hasBug2 = false
                 difficultyText.text = "score " + viewModel.score
-
-                val animator1 = ObjectAnimator.ofFloat(imButton2, "scaleX",  0f)
-                val animator2 = ObjectAnimator.ofFloat(imButton2, "scaleX", 1f)
-
-                animator1.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {
-                        imButton2.setImageResource(R.drawable.cpu_image)
-                    }
-                })
-                animator2.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {}
-                })
-                val set = AnimatorSet()
-                set.play(animator1).before(animator2)
-                set.duration = 100L
-                set.start()
+                flipCard(imButton2, hasBug2, 100L)
             }
         }
 
@@ -164,28 +148,7 @@ class GameFragment : Fragment() {
                 clicked = true
                 hasBug3 = false
                 difficultyText.text = "score " + viewModel.score
-
-                val animator1 = ObjectAnimator.ofFloat(imButton3, "scaleX",  0f)
-                val animator2 = ObjectAnimator.ofFloat(imButton3, "scaleX", 1f)
-
-                animator1.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {
-                        imButton3.setImageResource(R.drawable.cpu_image)
-                    }
-                })
-                animator2.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {}
-                })
-                val set = AnimatorSet()
-                set.play(animator1).before(animator2)
-                set.duration = 100L
-                set.start()
+                flipCard(imButton3, hasBug3, 100L)
             }
         }
 
@@ -195,28 +158,7 @@ class GameFragment : Fragment() {
                 clicked = true
                 hasBug4 = false
                 difficultyText.text = "score " + viewModel.score
-
-                val animator1 = ObjectAnimator.ofFloat(imButton4, "scaleX",  0f)
-                val animator2 = ObjectAnimator.ofFloat(imButton4, "scaleX", 1f)
-
-                animator1.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {
-                        imButton4.setImageResource(R.drawable.cpu_image)
-                    }
-                })
-                animator2.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {}
-                })
-                val set = AnimatorSet()
-                set.play(animator1).before(animator2)
-                set.duration = 100L
-                set.start()
+                flipCard(imButton4, hasBug4, 100L)
             }
         }
 
@@ -226,28 +168,7 @@ class GameFragment : Fragment() {
                 clicked = true
                 hasBug5 = false
                 difficultyText.text = "score " + viewModel.score
-
-                val animator1 = ObjectAnimator.ofFloat(imButton5, "scaleX",  0f)
-                val animator2 = ObjectAnimator.ofFloat(imButton5, "scaleX", 1f)
-
-                animator1.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {
-                        imButton5.setImageResource(R.drawable.cpu_image)
-                    }
-                })
-                animator2.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {}
-                })
-                val set = AnimatorSet()
-                set.play(animator1).before(animator2)
-                set.duration = 100L
-                set.start()
+                flipCard(imButton5, hasBug5, 100L)
             }
         }
 
@@ -257,28 +178,7 @@ class GameFragment : Fragment() {
                 clicked = true
                 hasBug6 = false
                 difficultyText.text = "score " + viewModel.score
-
-                val animator1 = ObjectAnimator.ofFloat(imButton6, "scaleX",  0f)
-                val animator2 = ObjectAnimator.ofFloat(imButton6, "scaleX", 1f)
-
-                animator1.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {
-                        imButton6.setImageResource(R.drawable.cpu_image)
-                    }
-                })
-                animator2.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {}
-                })
-                val set = AnimatorSet()
-                set.play(animator1).before(animator2)
-                set.duration = 100L
-                set.start()
+                flipCard(imButton6, hasBug6, 100L)
             }
         }
 
@@ -288,28 +188,7 @@ class GameFragment : Fragment() {
                 clicked = true
                 hasBug7 = false
                 difficultyText.text = "score " + viewModel.score
-
-                val animator1 = ObjectAnimator.ofFloat(imButton7, "scaleX",  0f)
-                val animator2 = ObjectAnimator.ofFloat(imButton7, "scaleX", 1f)
-
-                animator1.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {
-                        imButton7.setImageResource(R.drawable.cpu_image)
-                    }
-                })
-                animator2.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {}
-                })
-                val set = AnimatorSet()
-                set.play(animator1).before(animator2)
-                set.duration = 100L
-                set.start()
+                flipCard(imButton7, hasBug7, 100L)
             }
         }
 
@@ -319,28 +198,7 @@ class GameFragment : Fragment() {
                 clicked = true
                 hasBug8 = false
                 difficultyText.text = "score " + viewModel.score
-
-                val animator1 = ObjectAnimator.ofFloat(imButton8, "scaleX",  0f)
-                val animator2 = ObjectAnimator.ofFloat(imButton8, "scaleX", 1f)
-
-                animator1.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {
-                        imButton8.setImageResource(R.drawable.cpu_image)
-                    }
-                })
-                animator2.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {}
-                })
-                val set = AnimatorSet()
-                set.play(animator1).before(animator2)
-                set.duration = 100L
-                set.start()
+                flipCard(imButton8, hasBug8, 100L)
             }
         }
 
@@ -350,28 +208,7 @@ class GameFragment : Fragment() {
                 clicked = true
                 hasBug9 = false
                 difficultyText.text = "score " + viewModel.score
-
-                val animator1 = ObjectAnimator.ofFloat(imButton9, "scaleX",  0f)
-                val animator2 = ObjectAnimator.ofFloat(imButton9, "scaleX", 1f)
-
-                animator1.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {
-                        imButton9.setImageResource(R.drawable.cpu_image)
-                    }
-                })
-                animator2.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {}
-                })
-                val set = AnimatorSet()
-                set.play(animator1).before(animator2)
-                set.duration = 100L
-                set.start()
+                flipCard(imButton9, hasBug9, 100L)
             }
         }
 
@@ -381,28 +218,7 @@ class GameFragment : Fragment() {
                 clicked = true
                 hasBug10 = false
                 difficultyText.text = "score " + viewModel.score
-
-                val animator1 = ObjectAnimator.ofFloat(imButton10, "scaleX",  0f)
-                val animator2 = ObjectAnimator.ofFloat(imButton10, "scaleX", 1f)
-
-                animator1.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {
-                        imButton10.setImageResource(R.drawable.cpu_image)
-                    }
-                })
-                animator2.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {}
-                })
-                val set = AnimatorSet()
-                set.play(animator1).before(animator2)
-                set.duration = 100L
-                set.start()
+                flipCard(imButton10, hasBug10, 100L)
             }
         }
 
@@ -412,28 +228,7 @@ class GameFragment : Fragment() {
                 clicked = true
                 hasBug11 = false
                 difficultyText.text = "score " + viewModel.score
-
-                val animator1 = ObjectAnimator.ofFloat(imButton11, "scaleX",  0f)
-                val animator2 = ObjectAnimator.ofFloat(imButton11, "scaleX", 1f)
-
-                animator1.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {
-                        imButton11.setImageResource(R.drawable.cpu_image)
-                    }
-                })
-                animator2.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator?) {}
-                    override fun onAnimationCancel(animation: Animator?) {}
-                    override fun onAnimationRepeat(animation: Animator?) {}
-                    override fun onAnimationEnd(animation: Animator?) {}
-                })
-                val set = AnimatorSet()
-                set.play(animator1).before(animator2)
-                set.duration = 100L
-                set.start()
+                flipCard(imButton11, hasBug11, 100L)
             }
         }
 
@@ -443,16 +238,131 @@ class GameFragment : Fragment() {
                 clicked = true
                 hasBug12 = false
                 difficultyText.text = "score " + viewModel.score
+                flipCard(imButton12, hasBug12, 100L)
+            }
+        }
 
-                val animator1 = ObjectAnimator.ofFloat(imButton12, "scaleX",  0f)
-                val animator2 = ObjectAnimator.ofFloat(imButton12, "scaleX", 1f)
+        bugLoopHandler.post(object : Runnable {
+                override fun run() {
+                    if (!wait) {
+                        val rnd = (0..11).random()
+                        val rnd2 = (0..11).random()
+                        when (rnd) {
+                            0 -> {
+                                hasBug1 = true
+                                flipCard(imButton1, hasBug1, 50L)
+                            }
+                            1 -> {
+                                hasBug2 = true
+                                flipCard(imButton2, hasBug2, 50L)
+                            }
+                            2 -> {
+                                hasBug3 = true
+                                flipCard(imButton3, hasBug3, 50L)
+                            }
+                            3 -> {
+                                hasBug4 = true
+                                flipCard(imButton4, hasBug4, 50L)
+                            }
+                            4 -> {
+                                hasBug5 = true
+                                flipCard(imButton5, hasBug5, 50L)
+                            }
+                            5 -> {
+                                hasBug6 = true
+                                flipCard(imButton6, hasBug6, 50L)
+                            }
+                            6 -> {
+                                hasBug7 = true
+                                flipCard(imButton7, hasBug7, 50L)
+                            }
+                            7 -> {
+                                hasBug8 = true
+                                flipCard(imButton8, hasBug8, 50L)
+                            }
+                            8 -> {
+                                hasBug9 = true
+                                flipCard(imButton9, hasBug9, 50L)
+                            }
+                            9 -> {
+                                hasBug10 = true
+                                flipCard(imButton10, hasBug10, 50L)
+                            }
+                            10 -> {
+                                hasBug11 = true
+                                flipCard(imButton11, hasBug11, 50L)
+                            }
+                            11 -> {
+                                hasBug12 = true
+                                flipCard(imButton12, hasBug12, 50L)
+                            }
+                        }
+                        when (rnd2) {
+                            0 -> turnCard(imButton1)
+                            1 -> turnCard(imButton2)
+                            2 -> turnCard(imButton3)
+                            3 -> turnCard(imButton4)
+                            4 -> turnCard(imButton5)
+                            5 -> turnCard(imButton6)
+                            6 -> turnCard(imButton7)
+                            7 -> turnCard(imButton8)
+                            8 -> turnCard(imButton1)
+                            9 -> turnCard(imButton10)
+                            10 -> turnCard(imButton11)
+                            11 -> turnCard(imButton12)
+                        }
+                    }
+                    if (clicked) {
+                        if (!wait) {
+                            clicked = false
+                        } else {
+                            wait = false
+                        }
+                        bugLoopHandler.postDelayed(this, delay)
+                    } else if (!gameOver) {
+                        view.findNavController().navigate(R.id.action_gameFragment2_to_resultFragment)
+                    }
+                }
+            })
+
+        return view
+    }
+
+    // second simple animation that randomly turns cards
+    private fun turnCard(card: ImageButton) {
+        val rnd = (0..1).random()
+        val rnd2 = (200.. 2000).random()
+        var animator = ObjectAnimator.ofFloat(card, "rotation", 0f, -90f).setDuration(75L)
+        when(rnd) {
+            0 -> animator = ObjectAnimator.ofFloat(card, "rotation", 0f, 90f).setDuration(75L)
+            1 -> animator = ObjectAnimator.ofFloat(card, "rotation", 0f, -90f).setDuration(75L)
+        }
+        animator.setStartDelay(rnd2.toLong())
+        animator.start()
+    }
+
+    private fun flipCard(card: ImageButton, bug: Boolean, dur: Long) {
+        val rnd = (0..1).random()
+        // first animation set, flips card horizontally
+        when(rnd) {
+            0 -> {
+                val animator1 = ObjectAnimator.ofFloat(card, "scaleX",  0f)
+                val animator2 = ObjectAnimator.ofFloat(card, "scaleX", 1f)
 
                 animator1.addListener(object : Animator.AnimatorListener {
                     override fun onAnimationStart(animation: Animator?) {}
                     override fun onAnimationCancel(animation: Animator?) {}
                     override fun onAnimationRepeat(animation: Animator?) {}
                     override fun onAnimationEnd(animation: Animator?) {
-                        imButton12.setImageResource(R.drawable.cpu_image)
+                        if (bug) {
+                            if (viewModel.bug2) {
+                                card.setImageResource(R.drawable.bug2_image)
+                            } else {
+                                card.setImageResource(R.drawable.bug_image)
+                            }
+                        } else {
+                            card.setImageResource(R.drawable.cpu_image)
+                        }
                     }
                 })
                 animator2.addListener(object : Animator.AnimatorListener {
@@ -463,319 +373,45 @@ class GameFragment : Fragment() {
                 })
                 val set = AnimatorSet()
                 set.play(animator1).before(animator2)
-                set.duration = 100L
+                set.duration = dur
+                set.start()
+            }
+            // second animation set, flips card vertically
+            1 -> {
+                val animator1 = ObjectAnimator.ofFloat(card, "scaleY",  0f)
+                val animator2 = ObjectAnimator.ofFloat(card, "scaleY", 1f)
+
+                animator1.addListener(object : Animator.AnimatorListener {
+                    override fun onAnimationStart(animation: Animator?) {}
+                    override fun onAnimationCancel(animation: Animator?) {}
+                    override fun onAnimationRepeat(animation: Animator?) {}
+                    override fun onAnimationEnd(animation: Animator?) {
+                        if (bug) {
+                            if (viewModel.bug2) {
+                                card.setImageResource(R.drawable.bug2_image)
+                            } else {
+                                card.setImageResource(R.drawable.bug_image)
+                            }
+                        } else {
+                            card.setImageResource(R.drawable.cpu_image)
+                        }
+                    }
+                })
+                animator2.addListener(object : Animator.AnimatorListener {
+                    override fun onAnimationStart(animation: Animator?) {}
+                    override fun onAnimationCancel(animation: Animator?) {}
+                    override fun onAnimationRepeat(animation: Animator?) {}
+                    override fun onAnimationEnd(animation: Animator?) {}
+                })
+                val set = AnimatorSet()
+                set.play(animator1).before(animator2)
+                set.duration = dur
                 set.start()
             }
         }
-
-        bugLoopHandler.post(object : Runnable {
-                override fun run() {
-                        val rnd = (0..11).random()
-                        when (rnd) {
-                            0 -> {
-                                val animator1 = ObjectAnimator.ofFloat(imButton1, "scaleX",  0f)
-                                val animator2 = ObjectAnimator.ofFloat(imButton1, "scaleX", 1f)
-
-                                animator1.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {
-                                        imButton1.setImageResource(R.drawable.bug_image)
-                                    }
-                                })
-                                animator2.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {}
-                                })
-                                val set = AnimatorSet()
-                                set.play(animator1).before(animator2)
-                                set.duration = 50L
-                                set.start()
-                                hasBug1 = true
-                            }
-                            1 -> {
-                                val animator1 = ObjectAnimator.ofFloat(imButton2, "scaleX",  0f)
-                                val animator2 = ObjectAnimator.ofFloat(imButton2, "scaleX", 1f)
-
-                                animator1.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {
-                                        imButton2.setImageResource(R.drawable.bug_image)
-                                    }
-                                })
-                                animator2.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {}
-                                })
-                                val set = AnimatorSet()
-                                set.play(animator1).before(animator2)
-                                set.duration = 50L
-                                set.start()
-                                hasBug2 = true
-                            }
-                            2 -> {
-                                val animator1 = ObjectAnimator.ofFloat(imButton3, "scaleX",  0f)
-                                val animator2 = ObjectAnimator.ofFloat(imButton3, "scaleX", 1f)
-
-                                animator1.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {
-                                        imButton3.setImageResource(R.drawable.bug_image)
-                                    }
-                                })
-                                animator2.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {}
-                                })
-                                val set = AnimatorSet()
-                                set.play(animator1).before(animator2)
-                                set.duration = 50L
-                                set.start()
-                                hasBug3 = true
-                            }
-                            3 -> {
-                                val animator1 = ObjectAnimator.ofFloat(imButton4, "scaleX",  0f)
-                                val animator2 = ObjectAnimator.ofFloat(imButton4, "scaleX", 1f)
-
-                                animator1.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {
-                                        imButton4.setImageResource(R.drawable.bug_image)
-                                    }
-                                })
-                                animator2.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {}
-                                })
-                                val set = AnimatorSet()
-                                set.play(animator1).before(animator2)
-                                set.duration = 50L
-                                set.start()
-                                hasBug4 = true
-                            }
-                            4 -> {
-                                val animator1 = ObjectAnimator.ofFloat(imButton5, "scaleX",  0f)
-                                val animator2 = ObjectAnimator.ofFloat(imButton5, "scaleX", 1f)
-
-                                animator1.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {
-                                        imButton5.setImageResource(R.drawable.bug_image)
-                                    }
-                                })
-                                animator2.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {}
-                                })
-                                val set = AnimatorSet()
-                                set.play(animator1).before(animator2)
-                                set.duration = 50L
-                                set.start()
-                                hasBug5 = true
-                            }
-                            5 -> {
-                                val animator1 = ObjectAnimator.ofFloat(imButton6, "scaleX",  0f)
-                                val animator2 = ObjectAnimator.ofFloat(imButton6, "scaleX", 1f)
-
-                                animator1.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {
-                                        imButton6.setImageResource(R.drawable.bug_image)
-                                    }
-                                })
-                                animator2.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {}
-                                })
-                                val set = AnimatorSet()
-                                set.play(animator1).before(animator2)
-                                set.duration = 50L
-                                set.start()
-                                hasBug6 = true
-                            }
-                            6 -> {
-                                val animator1 = ObjectAnimator.ofFloat(imButton7, "scaleX",  0f)
-                                val animator2 = ObjectAnimator.ofFloat(imButton7, "scaleX", 1f)
-
-                                animator1.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {
-                                        imButton7.setImageResource(R.drawable.bug_image)
-                                    }
-                                })
-                                animator2.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {}
-                                })
-                                val set = AnimatorSet()
-                                set.play(animator1).before(animator2)
-                                set.duration = 50L
-                                set.start()
-                                hasBug7 = true
-                            }
-                            7 -> {
-                                val animator1 = ObjectAnimator.ofFloat(imButton8, "scaleX",  0f)
-                                val animator2 = ObjectAnimator.ofFloat(imButton8, "scaleX", 1f)
-
-                                animator1.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {
-                                        imButton8.setImageResource(R.drawable.bug_image)
-                                    }
-                                })
-                                animator2.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {}
-                                })
-                                val set = AnimatorSet()
-                                set.play(animator1).before(animator2)
-                                set.duration = 50L
-                                set.start()
-                                hasBug8 = true
-                            }
-                            8 -> {
-                                val animator1 = ObjectAnimator.ofFloat(imButton9, "scaleX",  0f)
-                                val animator2 = ObjectAnimator.ofFloat(imButton9, "scaleX", 1f)
-
-                                animator1.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {
-                                        imButton9.setImageResource(R.drawable.bug_image)
-                                    }
-                                })
-                                animator2.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {}
-                                })
-                                val set = AnimatorSet()
-                                set.play(animator1).before(animator2)
-                                set.duration = 50L
-                                set.start()
-                                hasBug9 = true
-                            }
-                            9 -> {
-                                val animator1 = ObjectAnimator.ofFloat(imButton10, "scaleX",  0f)
-                                val animator2 = ObjectAnimator.ofFloat(imButton10, "scaleX", 1f)
-
-                                animator1.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {
-                                        imButton10.setImageResource(R.drawable.bug_image)
-                                    }
-                                })
-                                animator2.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {}
-                                })
-                                val set = AnimatorSet()
-                                set.play(animator1).before(animator2)
-                                set.duration = 50L
-                                set.start()
-                                hasBug10 = true
-                            }
-                            10 -> {
-                                val animator1 = ObjectAnimator.ofFloat(imButton11, "scaleX",  0f)
-                                val animator2 = ObjectAnimator.ofFloat(imButton11, "scaleX", 1f)
-
-                                animator1.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {
-                                        imButton11.setImageResource(R.drawable.bug_image)
-                                    }
-                                })
-                                animator2.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {}
-                                })
-                                val set = AnimatorSet()
-                                set.play(animator1).before(animator2)
-                                set.duration = 50L
-                                set.start()
-                                hasBug11 = true
-                            }
-                            11 -> {
-                                val animator1 = ObjectAnimator.ofFloat(imButton12, "scaleX",  0f)
-                                val animator2 = ObjectAnimator.ofFloat(imButton12, "scaleX", 1f)
-
-                                animator1.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {
-                                        imButton12.setImageResource(R.drawable.bug_image)
-                                    }
-                                })
-                                animator2.addListener(object : Animator.AnimatorListener {
-                                    override fun onAnimationStart(animation: Animator?) {}
-                                    override fun onAnimationCancel(animation: Animator?) {}
-                                    override fun onAnimationRepeat(animation: Animator?) {}
-                                    override fun onAnimationEnd(animation: Animator?) {}
-                                })
-                                val set = AnimatorSet()
-                                set.play(animator1).before(animator2)
-                                set.duration = 50L
-                                set.start()
-                                hasBug12 = true
-                            }
-                        }
-                    if(clicked) {
-                        bugLoopHandler.postDelayed(this, delay)
-                        clicked = false
-                    } else if (!gameOver){
-                        view.findNavController().navigate(R.id.action_gameFragment2_to_resultFragment)
-                    }
-                }
-            })
-
-        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
     }
-
 }

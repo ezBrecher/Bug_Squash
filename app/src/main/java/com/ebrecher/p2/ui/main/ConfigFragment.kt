@@ -64,21 +64,23 @@ class ConfigFragment : Fragment() {
         }
 
         override fun onClick(v: View?) {
-            headerText.text = curr
             when (curr) {
                 "Easy" -> {
+                    headerText.setText(R.string.difficultyEasy)
                     viewModel.currDiff ="Easy"
                     viewModel.easy = true
                     viewModel.normal = false
                     viewModel.hard = false
                 }
                 "Normal" -> {
+                    headerText.setText(R.string.difficultyNormal)
                     viewModel.currDiff ="Normal"
                     viewModel.easy = false
                     viewModel.normal = true
                     viewModel.hard = false
                 }
                 "Hard" -> {
+                    headerText.setText(R.string.difficultyHard)
                     viewModel.currDiff = "Hard"
                     viewModel.easy = false
                     viewModel.normal = false
