@@ -73,11 +73,6 @@ class SettingsFragment : Fragment() {
             }
             Log.d("TAG", checkedId.toString())
         }
-
         return binding.root
-    }
-
-    companion object {
-        fun newInstance() = SettingsFragment()
     }
 }

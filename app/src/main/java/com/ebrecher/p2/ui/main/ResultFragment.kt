@@ -32,11 +32,6 @@ class ResultFragment : Fragment() {
         backTitleButton.setOnClickListener {
             view.findNavController().navigate(R.id.action_resultFragment_to_welcomeFragment)
         }
-
         return view
-    }
-
-    companion object {
-        fun newInstance() = ResultFragment()
     }
 }

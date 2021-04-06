@@ -7,7 +7,6 @@ import android.animation.ValueAnimator
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +14,11 @@ import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.ebrecher.p2.R
 import java.util.*
-import kotlin.concurrent.timerTask
 
 class GameFragment : Fragment() {
 
@@ -64,8 +63,8 @@ class GameFragment : Fragment() {
     private var hasBug12: Boolean = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.game_fragment, container, false)
 
@@ -243,88 +242,87 @@ class GameFragment : Fragment() {
         }
 
         bugLoopHandler.post(object : Runnable {
-                override fun run() {
-                    if (!wait) {
-                        val rnd = (0..11).random()
-                        val rnd2 = (0..11).random()
-                        when (rnd) {
-                            0 -> {
-                                hasBug1 = true
-                                flipCard(imButton1, hasBug1, 50L)
-                            }
-                            1 -> {
-                                hasBug2 = true
-                                flipCard(imButton2, hasBug2, 50L)
-                            }
-                            2 -> {
-                                hasBug3 = true
-                                flipCard(imButton3, hasBug3, 50L)
-                            }
-                            3 -> {
-                                hasBug4 = true
-                                flipCard(imButton4, hasBug4, 50L)
-                            }
-                            4 -> {
-                                hasBug5 = true
-                                flipCard(imButton5, hasBug5, 50L)
-                            }
-                            5 -> {
-                                hasBug6 = true
-                                flipCard(imButton6, hasBug6, 50L)
-                            }
-                            6 -> {
-                                hasBug7 = true
-                                flipCard(imButton7, hasBug7, 50L)
-                            }
-                            7 -> {
-                                hasBug8 = true
-                                flipCard(imButton8, hasBug8, 50L)
-                            }
-                            8 -> {
-                                hasBug9 = true
-                                flipCard(imButton9, hasBug9, 50L)
-                            }
-                            9 -> {
-                                hasBug10 = true
-                                flipCard(imButton10, hasBug10, 50L)
-                            }
-                            10 -> {
-                                hasBug11 = true
-                                flipCard(imButton11, hasBug11, 50L)
-                            }
-                            11 -> {
-                                hasBug12 = true
-                                flipCard(imButton12, hasBug12, 50L)
-                            }
+            override fun run() {
+                if (!wait) {
+                    val rnd = (0..11).random()
+                    val rnd2 = (0..11).random()
+                    when (rnd) {
+                        0 -> {
+                            hasBug1 = true
+                            flipCard(imButton1, hasBug1, 50L)
                         }
-                        when (rnd2) {
-                            0 -> turnCard(imButton1)
-                            1 -> turnCard(imButton2)
-                            2 -> turnCard(imButton3)
-                            3 -> turnCard(imButton4)
-                            4 -> turnCard(imButton5)
-                            5 -> turnCard(imButton6)
-                            6 -> turnCard(imButton7)
-                            7 -> turnCard(imButton8)
-                            8 -> turnCard(imButton1)
-                            9 -> turnCard(imButton10)
-                            10 -> turnCard(imButton11)
-                            11 -> turnCard(imButton12)
+                        1 -> {
+                            hasBug2 = true
+                            flipCard(imButton2, hasBug2, 50L)
+                        }
+                        2 -> {
+                            hasBug3 = true
+                            flipCard(imButton3, hasBug3, 50L)
+                        }
+                        3 -> {
+                            hasBug4 = true
+                            flipCard(imButton4, hasBug4, 50L)
+                        }
+                        4 -> {
+                            hasBug5 = true
+                            flipCard(imButton5, hasBug5, 50L)
+                        }
+                        5 -> {
+                            hasBug6 = true
+                            flipCard(imButton6, hasBug6, 50L)
+                        }
+                        6 -> {
+                            hasBug7 = true
+                            flipCard(imButton7, hasBug7, 50L)
+                        }
+                        7 -> {
+                            hasBug8 = true
+                            flipCard(imButton8, hasBug8, 50L)
+                        }
+                        8 -> {
+                            hasBug9 = true
+                            flipCard(imButton9, hasBug9, 50L)
+                        }
+                        9 -> {
+                            hasBug10 = true
+                            flipCard(imButton10, hasBug10, 50L)
+                        }
+                        10 -> {
+                            hasBug11 = true
+                            flipCard(imButton11, hasBug11, 50L)
+                        }
+                        11 -> {
+                            hasBug12 = true
+                            flipCard(imButton12, hasBug12, 50L)
                         }
                     }
-                    if (clicked) {
-                        if (!wait) {
-                            clicked = false
-                        } else {
-                            wait = false
-                        }
-                        bugLoopHandler.postDelayed(this, delay)
-                    } else if (!gameOver) {
-                        view.findNavController().navigate(R.id.action_gameFragment2_to_resultFragment)
+                    when (rnd2) {
+                        0 -> turnCard(imButton1)
+                        1 -> turnCard(imButton2)
+                        2 -> turnCard(imButton3)
+                        3 -> turnCard(imButton4)
+                        4 -> turnCard(imButton5)
+                        5 -> turnCard(imButton6)
+                        6 -> turnCard(imButton7)
+                        7 -> turnCard(imButton8)
+                        8 -> turnCard(imButton1)
+                        9 -> turnCard(imButton10)
+                        10 -> turnCard(imButton11)
+                        11 -> turnCard(imButton12)
                     }
                 }
-            })
-
+                if (clicked) {
+                    if (!wait) {
+                        clicked = false
+                    } else {
+                        wait = false
+                    }
+                    bugLoopHandler.postDelayed(this, delay)
+                } else if (!gameOver) {
+                    view.findNavController().navigate(R.id.action_gameFragment2_to_resultFragment)
+                }
+            }
+        })
         return view
     }
 
@@ -346,7 +344,7 @@ class GameFragment : Fragment() {
         // first animation set, flips card horizontally
         when(rnd) {
             0 -> {
-                val animator1 = ObjectAnimator.ofFloat(card, "scaleX",  0f)
+                val animator1 = ObjectAnimator.ofFloat(card, "scaleX", 0f)
                 val animator2 = ObjectAnimator.ofFloat(card, "scaleX", 1f)
 
                 animator1.addListener(object : Animator.AnimatorListener {
@@ -378,7 +376,7 @@ class GameFragment : Fragment() {
             }
             // second animation set, flips card vertically
             1 -> {
-                val animator1 = ObjectAnimator.ofFloat(card, "scaleY",  0f)
+                val animator1 = ObjectAnimator.ofFloat(card, "scaleY", 0f)
                 val animator2 = ObjectAnimator.ofFloat(card, "scaleY", 1f)
 
                 animator1.addListener(object : Animator.AnimatorListener {
@@ -411,7 +409,8 @@ class GameFragment : Fragment() {
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStop() {
+        super.onStop()
+        gameOver = true
     }
 }

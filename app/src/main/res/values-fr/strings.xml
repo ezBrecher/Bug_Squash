@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">P2</string>
-    <string name="welcomeMessageText">Bienvenue à Whack a Mole!</string>
+    <string name="app_name">Squash Dinsectes</string>
+    <string name="welcomeMessageText">Bienvenue à Bug Squash!</string>
     <string name="playButtonText">Jouer</string>
     <string name="settingsButtonText">Paramètres</string>
     <string name="settingsFragmentTitle">Paramètres</string>
-    <string name="configFragmentTitle">Config something idk</string>
-    <string name="gameFragmentTitle">G O O M</string>
-    <string name="resultsFragmentTitle">Results</string>
-    <string name="configPlayButtonText">Lets Go!</string>
-    <string name="settingsBack">back</string>
-    <string name="gameOverText">Game Over</string>
-    <string name="backToTitle">New Game</string>
-    <string name="lightMode">Light Mode</string>
-    <string name="darkMode">Dark Mode</string>
-    <string name="difficultyEasy">Easy</string>
-    <string name="difficultyNormal">Normal</string>
-    <string name="difficultyHard">Hard</string>
-    <string name="gameDifficulty">none</string>
-    <string name="squashed">You Squashed</string>
+    <string name="configFragmentTitle">Sélectionnez la difficulté</string>
+    <string name="gameFragmentTitle">Squash Dinsectes!</string>
+    <string name="resultsFragmentTitle">Jeu Terminé!</string>
+    <string name="configPlayButtonText">Allons-y!</string>
+    <string name="settingsBack">retour</string>
+    <string name="gameOverText">Jeu Terminé</string>
+    <string name="backToTitle">Nouveau Jeu</string>
+    <string name="lightMode">Mode Lumière</string>
+    <string name="darkMode">Mode Sombre</string>
+    <string name="difficultyEasy">Difficulté: Facile</string>
+    <string name="difficultyNormal">Difficulté: Normale</string>
+    <string name="difficultyHard">Difficulté: Difficile</string>
+    <string name="gameDifficulty"></string>
+    <string name="squashed">Vous Avez Ecrasé</string>
     <string name="bugs">Bugs!</string>
+    <string name="bugSwitchText">Autre Bug</string>
 </resources>

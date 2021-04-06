@@ -41,7 +41,11 @@
             android:id="@+id/action_configFragment_to_gameFragment2"
             app:destination="@id/gameFragment2"
             app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_left" />
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            app:popUpTo="@id/welcomeFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment2"
@@ -55,7 +59,8 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right"
-            app:popUpTo="@id/welcomeFragment"/>
+            app:popUpTo="@id/welcomeFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
@@ -69,6 +74,6 @@
             app:exitAnim="@anim/to_right"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right"
-            app:popUpTo="@id/welcomeFragment"/>
+            app:popUpTo="@id/welcomeFragment" />
     </fragment>
 </navigation>

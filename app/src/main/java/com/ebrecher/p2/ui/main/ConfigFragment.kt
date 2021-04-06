@@ -21,14 +21,10 @@ class ConfigFragment : Fragment() {
 
     private val viewModel: GameViewModel by activityViewModels()
 
-    val difficulties = arrayOf("Easy", "Normal", "Hard")
+    private val difficulties = arrayOf("Easy", "Normal", "Hard")
 
     private lateinit var recycler: RecyclerView
     private lateinit var headerText: TextView
-
-    companion object {
-        fun newInstance() = ConfigFragment()
-    }
 
     lateinit var configPlayButton: Button
 
@@ -58,7 +54,6 @@ class ConfigFragment : Fragment() {
         private val textView: TextView = itemView.findViewById(R.id.diffTextView)
         private lateinit var curr: String
 
-
         init {
             itemView.setOnClickListener(this)
         }
@@ -87,9 +82,6 @@ class ConfigFragment : Fragment() {
                     viewModel.hard = true
                 }
             }
-            Log.d("TAG", "easy " + viewModel.easy.toString())
-            Log.d("TAG", "medium " + viewModel.normal.toString())
-            Log.d("TAG", "hard " + viewModel.hard.toString())
         }
 
         fun bind(string: String) {

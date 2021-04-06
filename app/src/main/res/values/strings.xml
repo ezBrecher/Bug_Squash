@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">P2</string>
-    <string name="welcomeMessageText">Welcome to Bug Squash</string>
+    <string name="app_name">Bug Squash</string>
+    <string name="welcomeMessageText">Welcome to Bug Squash!</string>
     <string name="playButtonText">Play</string>
     <string name="settingsButtonText">Settings</string>
     <string name="settingsFragmentTitle">Settings</string>
-    <string name="configFragmentTitle">Config something idk</string>
+    <string name="configFragmentTitle">Select Difficulty</string>
     <string name="gameFragmentTitle">Bug Squash!</string>
     <string name="resultsFragmentTitle">Game Over!</string>
     <string name="configPlayButtonText">Lets Go!</string>

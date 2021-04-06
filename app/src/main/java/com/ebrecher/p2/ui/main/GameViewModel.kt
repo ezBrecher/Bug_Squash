@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 
 class GameViewModel() : ViewModel() {
-
     var bug2: Boolean = false
     var score: Int = 0
     var currDiff: String = "Normal"
@@ -14,5 +13,4 @@ class GameViewModel() : ViewModel() {
     var nightMode: Boolean = false
     var lightText: String = "Light Mode"
     var darkText: String = "Dark Mode"
-
 }
